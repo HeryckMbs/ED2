@@ -149,7 +149,7 @@ void ArvoreGeradoraMinima(TipoGrafo* Grafo, int inicio, int fim) {
 	if (verificarTodosVisitados(Grafo)) {
 		printf("Todos os nos foram visitados a partir de ");
 	} else {
-		printf("Não foi possivel visitar todos os nos a partir de ");
+		printf("NÃ£o foi possivel visitar todos os nos a partir de ");
 	}
 	ImprimeVertice(vInicio);
 	ZerarFlagsVisitado(Grafo);
@@ -158,48 +158,48 @@ void ArvoreGeradoraMinima(TipoGrafo* Grafo, int inicio, int fim) {
 
 void CaminhoMaisCurto(TipoGrafo *grafo, int origem, int destino)
 {
-    int i, vert,k, NovaDist, min;
+    int i, vert,k, NovaDistancia, min;
     int *M, *L, *A, *caminho;
     M = (int *)malloc(grafo->n*sizeof(int));
     L = (int *)malloc(grafo->n*sizeof(int));
     A = (int *)malloc(grafo->n*sizeof(int));
-    caminho = (int *)malloc(grafo->n*3*sizeof(int)); //vetor auxiliar
-    // incializando vairiaveis
+    caminho = (int *)malloc(grafo->n*3*sizeof(int));
+
     for (i=0; i<grafo->n; i++)
     {
-        M[i] = 0; // false -- determina se um vertice ja foi visitado
-        A[i] = -1; // determina o caminho mais curto entre origem e destino
-        L[i] = 300000; //infinito determina o comprimento do caminho mais curto
+        M[i] = 0; 
+        A[i] = -1;
+        L[i] = 300000; 
     }
     vert = origem;
     L[vert] = 0;
-    while (vert != destino && vert != -1) // não terminou ou caminho inexistente
+    while (vert != destino && vert != -1) 
     {
-        for(i=0;i<grafo->n; i++) // percorre vertices adjacentes de vert
-            if (grafo->MatrizAdj[vert][i] != 0 && M[i]==0) // se aresta existe e ela não foi visitada
+        for(i=0;i<grafo->n; i++)
+            if (grafo->MatrizAdj[vert][i] != 0 && M[i]==0)
             {
-                NovaDist = L[vert] + grafo->MatrizAdj[vert][i];
+                NovaDistancia = L[vert] + grafo->MatrizAdj[vert][i];
                 if (NovaDist < L[i])
                 {
-                    L[i] = NovaDist;
+                    L[i] = NovaDistancia;
                     A[i] = vert;
                 }
             }
-            M[vert] = 1; // toda a lista de adjacentes de vert já foi analisada
-            min = 300000; //infinito
-            vert = -1; // valor invalido
-            for (i=0; i<grafo->n; i++) // encontra proximo vertice do caminho
-                if (M[i]==0 && L[i] < min) //escolhe o vertice cuja aresta possui o menor peso
+            M[vert] = 1; 
+            min = 300000; 
+            vert = -1; 
+            for (i=0; i<grafo->n; i++) 
+                if (M[i]==0 && L[i] < min) 
                 {
-                    min = L[i]; // atualiza min
-                    vert = i; //atualiza vert
+                    min = L[i]; 
+                    vert = i; 
                 }
-    } //fim while
-    // listar o caminho mais curto entre origem e destino
-    if (vert == destino) // encontrou um caminho
+    } 
+    if (vert == destino) 
     {
-        printf("caminho mais curto entre %d e %d tem comprimento %d: ",
+        printf("caminho mais curto entre %d e %d tem tamanho de %d: ",
         origem, destino, L[destino] );
+	    
         caminho[0] = destino;
         k = 1;
         while (vert != origem)
@@ -212,6 +212,6 @@ void CaminhoMaisCurto(TipoGrafo *grafo, int origem, int destino)
         printf("%4d", caminho[i]);
         printf("\n");
     }
-    else printf("nao exite caminho entre %d e %d\n", origem, destino);
+    else printf("nao existe rota entre %d e %d\n", origem, destino);
 }
 
